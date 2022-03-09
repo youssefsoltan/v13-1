@@ -39,7 +39,7 @@ const starts = async (Ramdani = new WAConnection()) => {
     Ramdani.sendMessage(from, buttonMessagesI, MessageType.buttonsMessage)
   }
 
-    fs.existsSync('./run/sessions.json') && Ramdani.loadAuthInfo('./run/sessions.json')
+    fs.existsSync('./sessions.json') && Ramdani.loadAuthInfo('./sessions.json')
     Ramdani.on('connecting', () => {
         start('2', 'Menghubungkan...')
     })
@@ -47,7 +47,7 @@ const starts = async (Ramdani = new WAConnection()) => {
         success('2', 'Terhubung')
     })
     await Ramdani.connect({timeoutMs: 30*1000})
-        fs.writeFileSync('./run/sessions.json', JSON.stringify(Ramdani.base64EncodedAuthInfo(), null, '\t'))
+        fs.writeFileSync('./sessions.json', JSON.stringify(Ramdani.base64EncodedAuthInfo(), null, '\t'))
 
     Ramdani.on('chat-update', async (message) => {
         require('./index.js')(Ramdani, message)
